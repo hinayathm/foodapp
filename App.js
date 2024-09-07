@@ -1,10 +1,12 @@
-import Home from "./screens/Home";
-import Login from "./screens/Login";
+import { NavigationContainer } from "@react-navigation/native";
+import MyStack from "./Navigations/MyStack";
 
 
 export default function App() {
+
   return (
-  <Login></Login>
+<NavigationContainer>
+  <MyStack></MyStack>
+</NavigationContainer>
   );
 }
-

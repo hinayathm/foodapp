@@ -3,57 +3,47 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../components/Button";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "../server/firebaseConfig";
 
 
-export default function Login(){
+export default function Signup(){
     const [hidden,setHidden]=useState(true)
-    const navigation=useNavigation()
-    const [username,setUsername]=useState("")
-    const [password,setPassword]=useState("")
-    function handleSubmit(){
-        const auth = getAuth();
-signInWithEmailAndPassword(auth, username, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log( "login " ,user)
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage)
-  });
-    }
-
- 
     return(
         <SafeAreaView style={styles.safearea}>
             <View style={styles.viwe1}>
                 <ImageBackground source={ require("../assets/backgroundimg.png")} resizeMode="cover" style={styles.bgimg}>
-                <Text style={styles.login}>Login</Text>
-                <Text style={styles.text}>Please sign in your existing account</Text>
+                <Text style={styles.login}>Create an Account</Text>
+                <Text style={styles.text}>Please create an account to get started</Text>
                 </ImageBackground>
             </View>
-            <ScrollView style={{flex:1}}>
+            <ScrollView style={styles.bottom}>
             
 
             <View style={styles.view2}>
                 <Text style={styles.text1}>Email</Text>
-
-                <TextInput style={styles.inputbox} placeholder="hinayath@gmail.com" onChangeText={(value)=>setUsername(value)}></TextInput>
+                <TextInput style={styles.inputbox} placeholder="hinayath@gmail.com"></TextInput>
                 <Text style={styles.text1}>Password</Text>
                 <View style={styles.inputbox}>
-                <TextInput style={styles.inputbo} placeholder="**********" secureTextEntry={hidden}
-                maxLength={20} 
-                onChangeText={(value)=>setPassword(value)}
-           >
+                <TextInput placeholder="**********" secureTextEntry={hidden}
+                maxLength={20}>
 
                 </TextInput>
+                <MaterialCommunityIcons 
+                    size={24} 
+                    color="#aaa"
+                    style={styles.icon} 
+                    name="eye-off"
+                    onPress={function(){
+                    setHidden(!hidden)
+                    }}
+                /> 
+                
+                </View>
+                <Text style={styles.text1}>Re-Password</Text>
+                <View style={styles.inputbox}>
+                <TextInput placeholder="**********" secureTextEntry={hidden}
+                maxLength={20}>
 
+                </TextInput>
                 <MaterialCommunityIcons 
                     size={24} 
                     color="#aaa"
@@ -66,13 +56,7 @@ signInWithEmailAndPassword(auth, username, password)
                 
                 </View>
 
-                <Text style={styles.forgot} >Forgot Password </Text>
-                <TouchableOpacity style={{
-            backgroundColor: "#FF7600",width: 350,height: 60,borderRadius: 10,alignItems: "center",justifyContent: "center"}}
-            onPress={handleSubmit}
-        >
-            <Text style={{fontSize: 15,color: "white",fontWeight: "bold",}}>Login</Text>
-        </TouchableOpacity>
+                <Button title={"Signup"} style={styles.button} ></Button>
         
                 <Text>Don’t have an account ?<Text style={styles.sign}> Sign Up</Text></Text>
 
@@ -86,7 +70,7 @@ signInWithEmailAndPassword(auth, username, password)
             backgroundColor:"#121223"
         },
         viwe1:{
-            flex:1,
+            flex:2/3
          
             
             
@@ -96,7 +80,6 @@ signInWithEmailAndPassword(auth, username, password)
 
         },
         view2:{
-            flex:1,
             borderTopLeftRadius:10,
             borderTopRightRadius:10,
             backgroundColor:"white",
@@ -161,6 +144,10 @@ signInWithEmailAndPassword(auth, username, password)
         },
         icon:{
             
+        },
+        bottom:{
+            flex:2/3,
+            height:700
         }
 
 
